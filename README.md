@@ -3,6 +3,8 @@
 Waypoint is an AI-based student career guidance platform designed to help students make better career decisions based on their academic background, interests, skills, and career goals.
  
 The platform provides personalized career recommendations along with job, internship, course, skill-gap, resume analysis, and career roadmap features.
+
+Live Demo: https://waypoint-fawn-iota.vercel.app/
  
 ## Features
  
