@@ -22,11 +22,16 @@
   padding: 0;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--paper);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 a {
@@ -443,4 +448,148 @@ label {
 
 ::-webkit-scrollbar-track {
   background: transparent;
+}
+
+@media (max-width: 1180px) {
+  .app {
+    display: block;
+  }
+
+  .rail {
+    position: static;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    padding: 18px 14px;
+  }
+
+  .rail > div {
+    margin-bottom: 10px;
+  }
+
+  .rail-link {
+    padding: 10px 12px;
+  }
+
+  .g4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .g3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #s2 > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  #s2 > div > div {
+    min-height: unset;
+  }
+
+  #s1 > div:first-child > div:nth-child(2) {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rail {
+    padding: 12px 10px 8px;
+  }
+
+  .rail-brand {
+    padding: 0 6px 6px;
+  }
+
+  .rail-group-label {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .rail-link {
+    font-size: 12.5px;
+    padding: 9px 10px;
+  }
+
+  .topbar,
+  .content {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .topbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .search-box {
+    flex: 1;
+    width: auto;
+  }
+
+  .g2,
+  .g3,
+  .g4 {
+    grid-template-columns: 1fr;
+  }
+
+  #s2 > div {
+    padding: 0 !important;
+  }
+
+  #s2 > div > div:first-child,
+  #s2 > div > div:last-child {
+    padding: 28px 20px !important;
+  }
+
+  #s1 > div:first-child {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  #s1 > div:nth-child(2) {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+
+  #s1 > div:first-child > div:nth-child(2) {
+    gap: 24px;
+  }
+
+  #s1 h1 {
+    font-size: 2.3rem !important;
+  }
+
+  .btn,
+  .btn-ghost,
+  .btn-brass {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .rail-link {
+    font-size: 12px;
+  }
+
+  .topbar h1 {
+    font-size: 20px;
+  }
+
+  .content {
+    padding-top: 18px;
+  }
+
+  .card,
+  .stat-tile {
+    padding: 16px;
+  }
 }
