@@ -1,13 +1,17 @@
 function showScreen(id) {
+  const target = document.getElementById(id);
+  if (!target) return;
+
   document.querySelectorAll('.screen').forEach((s) => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  target.classList.add('active');
 
   document.querySelectorAll('.rail-link').forEach((l) => l.classList.remove('active'));
   const link = document.querySelector('.rail-link[data-screen="' + id + '"]');
   if (link) link.classList.add('active');
 
-  document.getElementById('main').scrollTo(0, 0);
-  window.scrollTo(0, 0);
+  const main = document.getElementById('main');
+  if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 document.querySelectorAll('.rail-link').forEach((link) => {
