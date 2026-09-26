@@ -60,6 +60,10 @@ img {
   min-height: 100vh;
 }
 
+.mobile-header {
+  display: none;
+}
+
 .rail {
   width: 236px;
   flex-shrink: 0;
@@ -520,34 +524,101 @@ label {
 }
 
 @media (max-width: 768px) {
+  .mobile-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px 10px;
+    background: rgba(245, 242, 234, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .mobile-brand .mark {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .mobile-menu-toggle {
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #f4efe6;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    box-shadow: 0 8px 18px rgba(27, 42, 74, 0.18);
+    transition: background 0.18s ease, transform 0.18s ease;
+  }
+
+  .mobile-menu-toggle:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  .mobile-menu-toggle.active {
+    background: var(--brass);
+    color: var(--ink);
+  }
+
   .app {
-    padding-bottom: 78px;
+    padding-bottom: 12px;
+    display: block;
   }
 
   .rail {
     position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: auto;
-    z-index: 20;
+    top: 62px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-height: calc(100vh - 82px);
+    z-index: 25;
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    width: 100%;
-    height: auto;
-    min-height: 72px;
-    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
-    overflow-x: auto;
-    overflow-y: hidden;
+    flex-direction: column;
     gap: 8px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 -8px 24px rgba(15, 22, 36, 0.18);
-    scrollbar-width: none;
+    padding: 10px;
+    border-radius: 18px;
+    background: rgba(27, 42, 74, 0.98);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 20px 30px rgba(15, 22, 36, 0.2);
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  }
+
+  .rail.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .rail::-webkit-scrollbar {
-    display: none;
+    width: 8px;
+  }
+
+  .rail::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 999px;
   }
 
   .rail-brand,
@@ -557,11 +628,10 @@ label {
 
   .rail > div {
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    flex: 0 0 auto;
+    flex-wrap: wrap;
     gap: 8px;
-    min-width: 0;
+    align-items: stretch;
+    justify-content: space-between;
   }
 
   .rail-group-label {
@@ -570,32 +640,40 @@ label {
 
   .rail-link {
     display: flex;
+    flex: 1 1 calc(50% - 8px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-width: 78px;
-    padding: 8px 6px 7px;
+    min-height: 62px;
+    min-width: 0;
+    padding: 8px 6px;
     border-radius: 12px;
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.2;
     letter-spacing: 0.01em;
     text-align: center;
-    color: #d8deee;
-    background: rgba(255, 255, 255, 0.02);
-    white-space: nowrap;
+    color: #d7dded;
+    background: rgba(255,255,255,0.02);
+    white-space: normal;
     font-weight: 600;
   }
 
   .rail-link svg {
+    display: block;
     width: 18px;
     height: 18px;
     margin-bottom: 4px;
+    opacity: 0.9;
   }
 
   .rail-link.active {
-    background: rgba(192, 138, 40, 0.92);
+    background: rgba(192, 138, 40, 0.98);
     color: #1b2a4a;
     box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+  }
+
+  .rail-link.active svg {
+    opacity: 1;
   }
 
   .main {
@@ -639,22 +717,78 @@ label {
     padding: 28px 20px !important;
   }
 
+  #s1 {
+    overflow-x: hidden;
+  }
+
   #s1 > div:first-child {
     padding-left: 18px !important;
     padding-right: 18px !important;
+    padding-top: 22px !important;
+    padding-bottom: 28px !important;
+  }
+
+  #s1 > div:first-child > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  #s1 > div:first-child > div:first-child > div:nth-child(2) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    font-size: 12px;
+  }
+
+  #s1 > div:first-child > div:nth-child(2) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 !important;
+  }
+
+  #s1 > div:first-child > div:nth-child(2) > div:first-child {
+    max-width: 100%;
+  }
+
+  #s1 > div:first-child > div:nth-child(2) > div:first-child > h1 {
+    font-size: 2.2rem !important;
+    line-height: 1.08;
+  }
+
+  #s1 > div:first-child > div:nth-child(2) > div:first-child > p,
+  #s1 > div:first-child > div:nth-child(2) > div:first-child > div:last-child {
+    max-width: 100%;
   }
 
   #s1 > div:nth-child(2) {
     padding-left: 18px !important;
     padding-right: 18px !important;
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
   }
 
-  #s1 > div:first-child > div:nth-child(2) {
-    gap: 24px;
+  #s1 > div:nth-child(2) > div:last-child > div {
+    grid-template-columns: 1fr;
   }
 
-  #s1 h1 {
-    font-size: 2.3rem !important;
+  #s1 > div:nth-child(2) > div:nth-child(2) {
+    grid-template-columns: 1fr;
+  }
+
+  #s1 > div:nth-child(2) > div:nth-child(2) .card {
+    min-width: 0;
+  }
+
+  #s1 .card,
+  #s1 .stat-tile {
+    padding: 16px;
+  }
+
+  #s1 h2,
+  #s1 h3 {
+    font-size: 1.7rem !important;
   }
 
   .btn,
@@ -662,6 +796,35 @@ label {
   .btn-brass {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  #s1 > div:first-child > div:nth-child(2) > div:first-child > h1 {
+    font-size: 1.9rem !important;
+  }
+
+  #s1 > div:nth-child(2) > div:last-child > div {
+    gap: 12px;
+  }
+
+  .rail-link {
+    min-width: 70px;
+    font-size: 9px;
+    padding: 7px 5px 6px;
+  }
+
+  .topbar h1 {
+    font-size: 20px;
+  }
+
+  .content {
+    padding-top: 18px;
+  }
+
+  .card,
+  .stat-tile {
+    padding: 16px;
   }
 }
 
